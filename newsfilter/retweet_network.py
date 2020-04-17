@@ -1,24 +1,20 @@
-import os
 import time
 import datetime
+import sys
 import tweepy
 import json
 
 # https://mediaeffectsresearch.wordpress.com/constructing-a-retweet-network/
 
-def get_news_handles(directory):
+def get_news_handles():
     keyword = "news"
     screen_name_list = []    
-    for path, dirs, files in os.walk(directory):
-        for filename in files:
-            fullpath = os.path.join(path, filename)    
-            line_generator = open(fullpath)
-            for line in line_generator:
-                line_object = json.loads(line)
-                username_string = line_object["user"]["screen_name"]
-                if keyword in username_string.lower():
-                    print(username_string)
-                    screen_name_list.append(username_string)
+    line_generator = open("tweets_coronavirus_en_2020/03/07/14/30.json")
+    for line in line_generator:
+        line_object = json.loads(line)
+        username_string = line_object["user"]["screen_name"]
+        if keyword in username_string.lower():
+            screen_name_list.append(username_string)
     return screen_name_list
 
 def collect_retweets(screen_name_list):
@@ -69,7 +65,7 @@ def utc2snowflake(utc_timestamp):
     return (int(round(utc_timestamp * 1000)) - 1288834974657) << 22
 
 def main():
-    screen_name_list = get_news_handles("tweets_coronavirus_en_2020/") 
+    screen_name_list = get_news_handles() 
     collect_retweets(screen_name_list)
 
 if __name__ == "__main__":

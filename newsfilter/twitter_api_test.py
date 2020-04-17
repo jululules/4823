@@ -9,8 +9,16 @@ ACCESS_SECRET = 'cikbqBaSgseWCHIJm3NRXx3WRDgO9zRLkEiSoQest0T7i'
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit = True)
 
 user = api.get_user('kickflipju')
-print(user.screen_name)
-print(user.followers_count)
+verified = user.verified
+protect = user.protected
+num_tweets = user.statuses_count
+bio = user.description
+link = user.url
+following = user.friends_count
+followers = user.followers_count
+id = user.id
+favorites = user.favourites_count
+
