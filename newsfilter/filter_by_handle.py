@@ -32,7 +32,7 @@ def get_info_day():
 
 def get_info_minute():
     screen_name_list = []
-    fname = "tweets_coronavirus_en_2020/03/11/10/19.json"
+    fname = "tweets_coronavirus_en_2020/02/28/12/59.json"
     keyword = "news"
     try:
         line_generator = open(fname)
@@ -50,7 +50,7 @@ def get_info_minute():
 
 def get_info_hour():
     screen_name_list = []
-    fopen = "tweets_coronavirus_en_2020/03/11/10/"
+    fopen = "tweets_coronavirus_en_2020/02/28/15/"
     keyword = "news"
     for x in range(60):
         if x < 10:
@@ -69,6 +69,6 @@ def get_info_hour():
             if keyword in userinfo_string.lower():
                 screen_name_list.append(userinfo_string)
                 userinfo_list = [line_object["user"]["screen_name"], line_object["id"], line_object["retweet_count"]]
-                print(userinfo_list)
+                #print(userinfo_list)
     return screen_name_list
 

@@ -20,7 +20,8 @@ def points_eval(info):
     if info[5] > 25000:
         points = points+1
     if points > 4:
-        rep = 1 
+        rep = 1
+    print(points)
     return rep
 
 
@@ -35,7 +36,10 @@ auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
 api = tweepy.API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
 
-snames = filter_by_handle.get_info_minute()
+f=open("results.txt", "a+")
+f2=open("cred_sources.txt", "a+")
+
+snames = filter_by_handle.get_info_hour()
 
 for name in snames:
     data = retweeters.rt_fav_single(name, api)
@@ -47,12 +51,27 @@ for name in snames:
         verified = user.verified.__str__()
         protect = user.protected.__str__()
         num_tweets = user.statuses_count.__str__()
-        bio = user.description.__str__()
+        #bio = user.description.__str__()
         link = user.url.__str__()
         following = user.friends_count.__str__()
         followers = user.followers_count.__str__()
         id = user.id.__str__()
         favorites = user.favourites_count.__str__()
+        rts = data[0].__str__()
+        favs = data[1].__str__()
+
+        if cred:
+            credibility = "yes"
+            f2.write(screen_name + "," + verified + "," + followers + "," + following + "," + rts + "," + favs + "," + num_tweets + "," + credibility)
+            f2.write("\n")
+        else:
+            credibility = "no"
+
+        #f.write("name: @" + screen_name + ", verified: " + verified + ", followers: " + followers + ", following: " + following
+         #             + ", RTs: " + rts + ", Favs: " + favs + ", Tweets: " + num_tweets + " | credible: " + credibility)
+
+        f.write(screen_name + "," + verified + "," + followers + "," + following + "," + rts + "," + favs + "," + num_tweets + "," + credibility)
+        f.write("\n")
 
         print("screen name: @" + screen_name)
         print("verified: " + verified)
@@ -69,6 +88,8 @@ for name in snames:
         print("  ")
         print("-----------")
         print("  ")
-    except:
+    except tweepy.TweepError:
         pass
         print("user couldn't be fetched")
+f.close()
+f2.close()
