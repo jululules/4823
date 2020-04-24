@@ -1,7 +1,14 @@
+#Jules Henry, Ahmir Ghorbanian
+#Spring 2020
+
+#Script to run point analysis on given tweet data.
+#Returns and prints score information and writes to text files.
+
+
+
 import retweeters
 import filter_by_handle
 import tweepy
-import json
 
 
 def points_eval(info):
@@ -39,7 +46,7 @@ api = tweepy.API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = Tr
 f=open("results.txt", "a+")
 f2=open("cred_sources.txt", "a+")
 
-snames = filter_by_handle.get_info_hour()
+snames = filter_by_handle.get_info_month()
 
 for name in snames:
     data = retweeters.rt_fav_single(name, api)
@@ -51,7 +58,6 @@ for name in snames:
         verified = user.verified.__str__()
         protect = user.protected.__str__()
         num_tweets = user.statuses_count.__str__()
-        #bio = user.description.__str__()
         link = user.url.__str__()
         following = user.friends_count.__str__()
         followers = user.followers_count.__str__()
@@ -67,9 +73,6 @@ for name in snames:
         else:
             credibility = "no"
 
-        #f.write("name: @" + screen_name + ", verified: " + verified + ", followers: " + followers + ", following: " + following
-         #             + ", RTs: " + rts + ", Favs: " + favs + ", Tweets: " + num_tweets + " | credible: " + credibility)
-
         f.write(screen_name + "," + verified + "," + followers + "," + following + "," + rts + "," + favs + "," + num_tweets + "," + credibility)
         f.write("\n")
 
@@ -80,7 +83,6 @@ for name in snames:
         # print("link in bio: " + bio)
         print("following: " + following)
         print("followers: " + followers)
-        #print("favorites: " + favorites)
         print(data)
         print(info)
         print("credible: ")

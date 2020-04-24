@@ -1,6 +1,12 @@
+#Jules Henry, Ahmir Ghorbanian
+#Spring 2020
+
+#Script to run engagement analysis on last 20 tweets of each account on a list.
+#Returns list of engagement data.
+
+#TO BE USED WITH OTHER SCRIPTS IN PROJECT BEFORE EVAULATING CREDIBILITY
+
 import tweepy
-import json
-import filter_by_handle as handles
 
 CONSUMER_KEY = 'LMxsDbA4lx7RqWhf2DqGeM1yx'
 CONSUMER_SECRET = 'azc96uPycF05zlIslDudv6YaWM40OIWhOd22VBBFVsUVjtdwdp'
@@ -12,8 +18,9 @@ auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
 api = tweepy.API(auth, wait_on_rate_limit = True)
 
-snames = handles.get_info_minute()
-print(len(snames))
+
+
+
 
 def rt_fav_list(snames, api):
     for name in snames:
@@ -26,16 +33,8 @@ def rt_fav_list(snames, api):
         favs = 0
         if len(timeline) > 3:
             for tweet in timeline:
-                #tweet_info = [tweet.retweet_count, tweet.favorite_count]
                 rts = rts + tweet.retweet_count
                 favs = favs + tweet.favorite_count
-                #print(tweet_info)
-                #tweet_id = tweet.id
-                #try:
-                #    retweeters = api.retweeters(tweet.id)
-                #    print(retweeters)
-                #except:
-                #    pass
             data = [rts, favs]
             print(data)
             print("  ")
@@ -54,19 +53,7 @@ def rt_fav_single(name, api):
     data = [0, 0]
     if len(timeline) > 3:
         for tweet in timeline:
-            # tweet_info = [tweet.retweet_count, tweet.favorite_count]
             rts = rts + tweet.retweet_count
             favs = favs + tweet.favorite_count
-            # print(tweet_info)
-            # tweet_id = tweet.id
-            # try:
-            #    retweeters = api.retweeters(tweet.id)
-            #    print(retweeters)
-            # except:
-            #    pass
         data = [rts, favs]
-        #print(data)
-        #print("  ")
-        #print("-----------")
-        #print("  ")
     return data

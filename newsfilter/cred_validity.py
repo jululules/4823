@@ -1,3 +1,10 @@
+#Jules Henry, Ahmir Ghorbanian
+#Spring 2020
+
+#Script to test functions of other scripts
+
+#NOT TO BE USED WITH ANY OTHER FILE FROM PROJECT
+
 import filter_by_handle
 import tweepy
 
